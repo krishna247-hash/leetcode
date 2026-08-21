@@ -2,16 +2,32 @@ class Solution {
 public:
     vector<int> smallerNumbersThanCurrent(vector<int>& nums) {
         
-        vector<int> temp;
+       vector<int> temp = nums;
 
-        for(auto it: nums){
-            int cnt = 0;
-            for(auto x: nums){
-                if(x < it) cnt++;
+        
+
+        sort(temp.begin(), temp.end());
+
+        unordered_map<int, int> mp;
+
+        for (int i = 0; i < temp.size(); i++) {
+
+            if (mp.find(temp[i]) == mp.end()) {
+
+                mp[temp[i]] = i;
 
             }
-            temp.push_back(cnt);
+
         }
-        return temp;
+
+        vector<int> ans;
+
+        for (int x : nums) {
+
+            ans.push_back(mp[x]);
+
+        }
+
+        return ans;
     }
 };
