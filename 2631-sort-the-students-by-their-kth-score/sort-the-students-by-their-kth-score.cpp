@@ -14,9 +14,9 @@ public:
 
             }
 
-            for(int l = 0; l < n; l++){
-                swap(score[maxi][l],score[j][l]);
-            }
+           
+                swap(score[maxi],score[j]);
+            
 
         }
         return score;
