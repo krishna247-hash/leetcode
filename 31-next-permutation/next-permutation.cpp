@@ -4,7 +4,7 @@ public:
         int n = nums.size();
 
         int partition = 0 ;
-        int mini;
+
         for(int i = n-2; i >= 0; i--)
         {
             if(nums[i] < nums[i+1])
