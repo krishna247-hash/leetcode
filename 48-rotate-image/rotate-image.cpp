@@ -1,5 +1,9 @@
 class Solution {
 public:
+
+//  FOR OPTIMAL TRASPOSE AND REVERSE EACH ROW
+
+// IN this temp[i][j] = matrix[rows - 1 - j][i];
     void rotate(vector<vector<int>>& matrix) {
         int rows = matrix.size();
         
