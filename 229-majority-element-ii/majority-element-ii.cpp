@@ -2,22 +2,35 @@ class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
         int n = nums.size();
-        map<int,int>mp;
+        
+        sort(nums.begin(),nums.end());
+
+        int cnt = 1;
+
+        int prior = nums[0];
         vector<int> temp;
 
-        for(int i = 0; i < n; i++)
-        {
-            mp[nums[i]]++;
-        }
+        for(int i = 1; i < n; i++){
+            if(prior != nums[i]){
+                if(cnt > n/3){
+                    temp.push_back(prior);
 
-        for(auto it: mp)
-        {
-            if(it.second > n/3){
-                temp.push_back(it.first);
+                }
+
+                prior = nums[i];
+                cnt = 1;
+            }
+            else{
+                cnt++;
             }
         }
-        return temp;
 
+        if (cnt > n / 3) {
+
+            temp.push_back(prior);
+
+        }
+        return temp;
 
     }
 };
