@@ -1,31 +1,20 @@
 class Solution {
 public:
-
-//  FOR OPTIMAL TRASPOSE AND REVERSE EACH ROW
-
-// IN this temp[i][j] = matrix[rows - 1 - j][i];
     void rotate(vector<vector<int>>& matrix) {
-        int rows = matrix.size();
-        
-        int cols = matrix[0].size();
+        int m = matrix.size();
+        int n = matrix[0].size();
 
-        vector<vector<int>> temp(rows, vector<int>(cols));
-
-        for(int i = 0; i < rows; i++)
+        for(int i = 0; i < m; i++)
         {
-            for(int j = 0; j < cols; j++)
+            for(int j = i+1 ; j < n; j++)
             {
-                temp[i][j] = matrix[rows - 1 - j][i];
+                swap(matrix[i][j] , matrix[j][i]);
             }
         }
 
-        for(int i = 0; i < rows; i++)
+        for(int i = 0; i < m ; i++)
         {
-            for(int j = 0; j < cols; j++)
-            {
-                matrix[i][j] = temp[i][j];
-            }
+            reverse(matrix[i].begin(),matrix[i].end());
         }
-
     }
 };
