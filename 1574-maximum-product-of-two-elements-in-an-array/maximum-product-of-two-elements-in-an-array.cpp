@@ -3,14 +3,27 @@ public:
     int maxProduct(vector<int>& nums) {
         int n = nums.size();
 
-        sort(nums.begin(),nums.end());
+        int e1 = INT_MIN;
 
-        int diff = ((nums[n-1] - 1) * (nums[n-2] - 1));
+        int e2 = INT_MIN;
 
+        for(int i = 0; i < n; i++)
+        {
+            if(nums[i] >= e1){
+                e2 = e1;
 
+                e1 = nums[i];
+            }
+            else if(nums[i] > e2)
+            {
+                e2 = nums[i];
+            }
 
-        return diff;
+        }
 
+        int ans = (e1 - 1)*(e2 - 1);
+
+        return ans;
 
     }
 };
