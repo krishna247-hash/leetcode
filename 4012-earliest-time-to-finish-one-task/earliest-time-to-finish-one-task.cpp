@@ -7,12 +7,9 @@ public:
         int mini = INT_MAX;
 
         for(int i = 0; i < n; i++){
-            int sum = 0;
-            for(auto it : tasks[i]){
-                sum += it;
-            }
+            
 
-            mini = min(mini,sum);
+            mini = min(mini,tasks[i][0]+tasks[i][1]);
 
         }
 
