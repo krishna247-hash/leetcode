@@ -1,76 +1,45 @@
 class Solution {
 public:
 
-      int maxElement(vector<int>& nums)
-
-    {
-
-        int maxi = INT_MIN;
-
-        for(auto it : nums)
-
-        {
-
-            maxi = max(maxi, it);
-
-        }
-
-        return maxi;
-
-    }
-
-    int totalSum(vector<int> &nums)
-    {
-        int n = nums.size();
+    int totalSum(vector<int>& weights){
         int sum = 0;
-
-        for(int i = 0; i < n; i++)
-        {
-            sum += nums[i];
+        for(auto it: weights){
+            sum += it;
         }
 
         return sum;
     }
 
-    int countDays(vector<int> &nums , int capacity)
+    int countDays(vector<int>& weights, int capacity)
     {
-        int countDay = 1;  int cnt = 0;
+        int sum = 0;  int days = 1;
 
-        for(int i = 0; i < nums.size(); i++)
-        {
-            cnt += nums[i];
-
-            if(cnt > capacity)
-            {
-                cnt = nums[i];
-
-                countDay++;
+        for(int i = 0; i < weights.size(); i++){
+            if(sum + weights[i] > capacity){
+                days++;
+                sum = 0;
             }
+            sum += weights[i];
         }
 
-        return countDay;
+        return days;
     }
-
-
     int shipWithinDays(vector<int>& weights, int days) {
-        int n = weights.size();
-
-        int low = maxElement(weights);  int high = totalSum(weights);
-
+        int low = *max_element(weights.begin(),weights.end());
+        int high = totalSum(weights);
         int ans = high;
 
         while(low <= high)
         {
             int mid = low + (high - low)/2;
 
-            int totalDays = countDays(weights,mid);
+            int totalD = countDays(weights,mid);
 
-            if(totalDays <= days)
+            if(totalD <= days)
             {
                 ans = mid;
-
                 high = mid - 1;
-            } 
+            }
             else
             {
                 low = mid + 1;
@@ -79,6 +48,4 @@ public:
 
         return ans;
     }
-
-    
 };
