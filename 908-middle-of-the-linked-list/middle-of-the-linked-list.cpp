@@ -15,7 +15,6 @@ int countLL(ListNode *head)
 {
     ListNode *temp = head;
     int cnt = 0;
-
     while (temp != nullptr)
     {
         temp = temp->next;
@@ -24,26 +23,16 @@ int countLL(ListNode *head)
     return cnt;
 }
 
-
-
-
-    ListNode* middleNode(ListNode* head) {
-        
+    ListNode* middleNode(ListNode* head) {       
         int cnt = countLL(head);
-
         int k = cnt / 2 + 1;
-
         cnt = 1;
-
         ListNode* temp = head;
-
         while(cnt < k)
         {
             temp = temp->next;
             cnt++;
         }
-
         return temp;
-
     }
 };
