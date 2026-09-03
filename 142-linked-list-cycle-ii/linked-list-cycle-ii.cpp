@@ -14,6 +14,7 @@ public:
         ListNode* fast = head;
         while(fast != nullptr && fast->next != nullptr)
         {
+            // Tortoise and Hare 
             fast = fast->next->next;
             slow = slow->next;
             if(fast == slow)
