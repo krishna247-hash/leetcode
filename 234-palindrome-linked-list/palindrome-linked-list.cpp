@@ -11,40 +11,64 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
+        if(head == nullptr || head->next == nullptr) return true;
 
-        if(head == nullptr || head->next == nullptr)
-            return true;
-
-        // 1. Find middle
-        ListNode* slow = head;
         ListNode* fast = head;
+        ListNode* slow = head;
 
-        while(fast != nullptr && fast->next != nullptr) {
-            slow = slow->next;
+        while(fast != nullptr && fast->next != nullptr)
+        {
             fast = fast->next->next;
+            slow = slow->next;
         }
 
-        // 2. Reverse second half
-        ListNode* prev = nullptr;
-        ListNode* curr = slow;
+        if(fast == nullptr)
+        {
+            ListNode* temp = slow;
+            ListNode* prev = nullptr;
+            while(temp != nullptr)
+            {
+                ListNode* front = temp->next;
+                temp->next = prev;
+                prev = temp;
+                temp = front;
+            }
 
-        while(curr != nullptr) {
-            ListNode* next = curr->next;
-            curr->next = prev;
-            prev = curr;
-            curr = next;
+            temp = prev;
+            slow = head;
+
+            while(temp != nullptr)
+            {
+                if(temp->val != slow->val) return false;
+                temp = temp->next;
+                slow = slow->next;
+            }
+
+            return true;
         }
+         else if(fast->next == nullptr)
+        {
+            ListNode* temp = slow->next;
+            ListNode* prev = nullptr;
+            while(temp != nullptr)
+            {
+                ListNode* front = temp->next;
+                temp->next = prev;
+                prev = temp;
+                temp = front;
+            }
 
-        // 3. Compare both halves
-        ListNode* left = head;
-        ListNode* right = prev;
+            temp = prev;
+            slow = head;
 
-        while(right != nullptr) {
-            if(left->val != right->val)
-                return false;
+            while(temp != nullptr)
+            {
+                if(temp->val != slow->val) return false;
+                temp = temp->next;
+                slow = slow->next;
+            }
 
-            left = left->next;
-            right = right->next;
+            return true;
         }
 
         return true;
