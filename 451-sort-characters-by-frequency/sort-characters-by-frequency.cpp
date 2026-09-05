@@ -7,16 +7,20 @@ public:
             mp[it]++;
         }
         vector<pair<int,char>> temp;
-        for(auto it: s)
+        for(auto it: mp)
         {
-            temp.push_back({mp[it],it});
+            temp.push_back({it.second,it.first});
         }
         sort(temp.begin(),temp.end());
         reverse(temp.begin(),temp.end());
         s = "";
         for(auto it: temp)
         {
-            s += it.second;
+            for(int i = 0; i < it.first; i++)
+            {
+               s += it.second; 
+            }
+            
         }
         return s;
     }
