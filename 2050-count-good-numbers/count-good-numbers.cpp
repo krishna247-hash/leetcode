@@ -1,8 +1,6 @@
 class Solution {
 public:
-
     long long M = 1e9+7;
-
     int power(int x, long long n)
     {
         int ans = 1;
@@ -19,9 +17,7 @@ public:
                 n = n / 2;
             }
         }
-
         return ans;
-
     }
 
     int countGoodNumbers(long long n) {
