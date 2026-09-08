@@ -1,9 +1,9 @@
 class Solution {
 public:
-    
-    
+ 
    void combination(int i, int sum, int n, int k, vector<int>& temp, vector<vector<int>>& ans)
  {
+    
     if(sum > n) return;
     if(i > 9 || temp.size() >= k)
     {
@@ -17,7 +17,6 @@ public:
     temp.pop_back();
     sum -= i;
      combination(i+1,sum,n,k,temp,ans);
-
  }
 
  vector<vector<int>> combinationSum3(int k, int n) {
