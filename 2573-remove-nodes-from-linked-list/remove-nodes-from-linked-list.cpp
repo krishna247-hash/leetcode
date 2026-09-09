@@ -10,39 +10,52 @@
  */
 class Solution {
 public:
-    ListNode* removeNodes(ListNode* head) {
-        ListNode* curr = head;
-        if(curr == nullptr || curr->next == nullptr)
-        return head;
+    
+ListNode* removeNodes(ListNode* head)
+{
+    ListNode* temp = head;
+    if(temp == nullptr|| temp->next == nullptr) return head;
 
-        vector<int> temp;
-        while(curr != NULL)
+    ListNode* prev = nullptr;
+
+    while(temp != nullptr)
+    {
+        ListNode* front = temp->next;
+        temp->next = prev;
+        prev = temp;
+        temp = front;
+    }
+
+    temp = prev;
+
+    int maxi = temp->val;
+    ListNode* newhead = temp;
+    ListNode* curr = newhead;
+    temp = temp->next;
+    while(temp != nullptr)
+    {
+        if(temp->val >= maxi)
         {
-            temp.push_back(curr->val);
+            maxi = temp->val;
+            curr->next = temp;
             curr = curr->next;
         }
-
-        vector<int> ans;
-        int maxi = INT_MIN;
-        for(int i = temp.size()-1; i >= 0; i--)
-        {           
-            if(temp[i] >= maxi)
-            {
-                ans.push_back(temp[i]);
-            }
-            maxi = max(maxi,temp[i]);
-        }
-
-        reverse(ans.begin(),ans.end());
-        if(ans.size() == 0) return nullptr;
-        ListNode* newhead = new ListNode(ans[0]);
-        ListNode* templl = newhead;
-        for(int i = 1; i < ans.size(); i++)
-        {
-            ListNode* newnode = new ListNode(ans[i]);
-            templl->next = newnode;
-            templl = templl->next;
-        }
-        return newhead;
+        temp = temp->next;
     }
+    curr->next = nullptr;
+
+    prev = NULL;
+    temp = newhead;
+
+    while(temp != nullptr)
+    {
+        ListNode* front = temp->next;
+        temp->next = prev;
+        prev = temp;
+        temp = front;
+    }
+
+    return prev;
+
+}
 };
