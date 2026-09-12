@@ -1,6 +1,8 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
+
+        // floyd algorithm like tortoise and heir
         int slow = 0;
         int fast = 0;
         while(1)
