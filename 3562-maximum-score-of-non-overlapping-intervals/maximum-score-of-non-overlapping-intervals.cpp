@@ -6,7 +6,7 @@ public:
         int n = intervals.size();
 
         // {start, end, weight, original_index}
-        vector<array<int,4>> a;
+        vector<vector<int>> a;
 
         for(int i = 0; i < n; i++)
         {
@@ -18,7 +18,7 @@ public:
             });
         }
 
-        // Sort by starting point
+        // Sort by start
         sort(a.begin(), a.end());
 
         // Store starting points
@@ -41,7 +41,7 @@ public:
             ) - starts.begin();
         }
 
-        // dp[i][k] = best answer from i using at most k intervals
+        // dp[i][k] = {score, indices}
         vector<vector<pair<long long, vector<int>>>> dp(
             n + 1,
             vector<pair<long long, vector<int>>>(5)
@@ -63,17 +63,13 @@ public:
                 sort(take.second.begin(), take.second.end());
 
                 if(take.first > notTake.first)
-                {
                     dp[i][k] = take;
-                }
+
                 else if(take.first < notTake.first)
-                {
                     dp[i][k] = notTake;
-                }
+
                 else
-                {
                     dp[i][k] = min(take, notTake);
-                }
             }
         }
 
