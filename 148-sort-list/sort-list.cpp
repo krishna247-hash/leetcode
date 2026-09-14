@@ -1,46 +1,65 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
+
 class Solution {
 public:
-    vector<int> LL2Array(ListNode* head)
+ListNode* MS(ListNode* l1, ListNode* l2)
     {
-        ListNode* temp = head;
-        vector<int> arr;
-        while(temp != nullptr)
+        ListNode* newhead = new ListNode(0);
+        ListNode* temp = newhead;
+        ListNode* temp1 = l1;
+        ListNode* temp2 = l2;
+
+        while(temp1 != nullptr && temp2 != nullptr)
         {
-            arr.push_back(temp->val);
-            temp = temp->next;
+            if(temp1->val <= temp2->val)
+            {
+                temp->next = temp1;
+                temp = temp->next;
+                temp1 = temp1->next;
+            }
+            else
+            {
+                temp->next = temp2;
+                temp = temp->next;
+                temp2 = temp2->next;
+            }
         }
-        return arr;
+        while(temp1 != nullptr)
+        {
+            temp->next = temp1;
+                temp = temp->next;
+                temp1 = temp1->next;
+        }
+        while(temp2 != nullptr)
+        {
+                temp->next = temp2;
+                temp = temp->next;
+                temp2 = temp2->next;
+        }
+
+        return newhead->next;
     }
 
-    ListNode* arr2LL(vector<int>& arr)
+    ListNode* merge(ListNode* head)
     {
-        ListNode* head = new ListNode(arr[0]);
-        ListNode* temp = head;
-        for(int i = 1; i < arr.size(); i++)
-        {
-            ListNode* newnode = new ListNode(arr[i]);
-            temp->next = newnode;
-            temp = newnode;
-        }
+        if(head == nullptr || head->next == nullptr)
         return head;
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+        while(fast != nullptr && fast->next != nullptr)
+        {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+
+        ListNode* mid = slow->next;
+        slow->next = nullptr;
+         ListNode* left = merge(head);
+        ListNode* right = merge(mid);
+      return MS(left,right);
     }
-
     ListNode* sortList(ListNode* head) {
-        if(head == nullptr || head->next == nullptr) return head;
-       vector<int> arr =  LL2Array(head);
-
-       sort(arr.begin(),arr.end());
-       return arr2LL(arr);
-
+        
+        head = merge(head);
+        return head;
     }
 };
