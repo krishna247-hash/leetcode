@@ -26,7 +26,7 @@ public:
         }
         else
         {
-            high--;
+            high = mid;
         }
        }
        return n-1;
