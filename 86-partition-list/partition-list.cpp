@@ -13,26 +13,29 @@ public:
     
     ListNode* partition(ListNode* head, int x) {
         if(head == NULL || head->next == NULL) return head;
-        vector<ListNode*> prev;
+        ListNode* smallHead = new ListNode(0);
+        ListNode* bigHead = new ListNode(0);
+        ListNode* small = smallHead;
+        ListNode* big = bigHead;
         ListNode* temp = head;
         while(temp != NULL)
         {
-            if(temp->val < x) prev.push_back(temp);
-            temp = temp->next;
-        }
-        temp = head;
-        while(temp != NULL)
-        {
-            if(temp->val >= x) prev.push_back(temp);
+            if(temp->val < x)
+            {
+                small->next = temp;
+                small = small->next;
+            }
+            else
+            {
+                big->next = temp;
+                big = big->next;
+            }
             temp = temp->next;
         }
 
-        ListNode* newHead = prev[0];
-        for(int i = 1; i < prev.size(); i++)
-         prev[i-1]->next = prev[i];
-        
-        prev[prev.size() - 1]->next = NULL;
+        big->next = NULL;
+        small->next = bigHead->next;
 
-        return newHead;
+        return smallHead->next;
     }
 };
