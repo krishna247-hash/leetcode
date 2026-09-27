@@ -13,12 +13,9 @@ public:
                 for(int i = 0; i < groupSize; i++)
                 {
                     if(mp[x+i] <= 0) return 0;
-                }
-               
-                for(int i = 0; i < groupSize; i++)
-                {
                     mp[x+i]--;
                 }
+
             }
         }
 
