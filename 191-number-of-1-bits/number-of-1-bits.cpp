@@ -6,7 +6,7 @@ public:
         int cnt = 0;
         while(n != 0)
         {
-            int digit = n % 2;
+            int digit = n & 1;
             if(digit) cnt++;
             n = n >> 1;
         }
