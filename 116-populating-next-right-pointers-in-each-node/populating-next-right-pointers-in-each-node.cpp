@@ -24,23 +24,27 @@ public:
         q.push(root);
         while(!q.empty())
         {
-            int n = q.size();
-            vector<Node*> arr;
+            int n = q.size() - 1;
+            Node* prev = q.front();
+            q.pop();
+               if(prev->left != NULL) 
+                q.push(prev->left);
+                if(prev->right != NULL)
+                q.push(prev->right);
+
             for(int i = 0; i < n; i++)
             {
                 Node* newnode = q.front();
                 q.pop();
-                arr.push_back(newnode);
+                prev->next = newnode;
+                prev = newnode;
                 if(newnode->left != NULL) 
                 q.push(newnode->left);
                 if(newnode->right != NULL)
                 q.push(newnode->right);
             }
 
-            for(int i = 1; i < arr.size(); i++)
-            {
-                arr[i-1]->next = arr[i];
-            }
+           
         }
         return root;
     }
