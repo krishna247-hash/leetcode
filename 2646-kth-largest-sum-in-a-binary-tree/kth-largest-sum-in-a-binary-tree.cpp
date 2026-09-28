@@ -33,8 +33,8 @@ public:
         if(ans.size() < k)
 
             return -1;
-        sort(ans.begin(),ans.end(),greater<long long>());
+        sort(ans.begin(),ans.end());
 
-        return ans[k-1];
+        return ans[ans.size() - k];
     }
 };
