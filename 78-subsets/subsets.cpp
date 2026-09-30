@@ -9,10 +9,11 @@ public:
             return;
         }
 
-        solve(i+1,nums,temp,ans);
+       
         temp.push_back(nums[i]);
         solve(i+1,nums,temp,ans);
         temp.pop_back();
+         solve(i+1,nums,temp,ans);
         
     }
     vector<vector<int>> subsets(vector<int>& nums) {
