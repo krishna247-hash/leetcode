@@ -1,45 +1,48 @@
 class Solution {
 public:
-
-     void parenthesis(int i, int n, string& s, vector<string>& ans)
+    bool check(string& temp)
     {
-       if(s[0] == ')') return;
-        if(i >= n )
+        stack<char> st;
+        for(auto it: temp)
         {
-            stack<char> st;
-
-            for(auto it : s)
+            if(it == '(')
             {
-                if(!st.empty())
-                {
-                    if(it == ')' && st.top() == '(')
-                    st.pop();
-                    else
-                    st.push(it);
-                }
-                else st.push(it);
-                
+                st.push(')');
             }
+            if(it == ')')
+            {
+                if(st.empty()) return false;
+                if(st.top() == ')') 
+                    st.pop();
+            }
+        }
 
-            if(st.empty()) ans.push_back(s);
+        return st.empty();
+    }
+    void solve(int i,int n, string& temp, vector<string>&ans)
+    {
+        if(i >= n)
+        {
+            if (check(temp))
+            {
+                ans.push_back(temp);
+            }
             return;
         }
 
-        s[i] = ')';
-        parenthesis(i+1,n,s,ans);
-        s[i] = '(';
-        parenthesis(i+1,n,s,ans);
+        temp[i] = '(';
+        solve(i+1,n,temp,ans);
+        temp[i] = ')';
+        solve(i+1,n,temp,ans);
+        
+
     }
-
     vector<string> generateParenthesis(int n) {
-        string s = "";
+        string temp = "";
         for(int i = 0; i < 2*n; i++)
-        {
-            s += '(';
-        }
+            temp += '(';
         vector<string> ans;
-        parenthesis(0,2*n,s,ans);
-
+        solve(0,2*n,temp,ans);
         return ans;
     }
 };
