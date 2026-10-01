@@ -11,7 +11,7 @@
  */
 class Solution {
 public:
-    bool checkLeaf(TreeNode* root)
+    bool isLeaf(TreeNode* root)
     {
         if(root != nullptr && root->left == nullptr && root->right == nullptr)
         return true;
@@ -19,27 +19,38 @@ public:
         return false;
     }
 
-    void DFS(TreeNode* root, int& targetSum , int& sum, vector<vector<int>>& ans, vector<int>& temp)
+    void DFS(TreeNode* root, int sum, int targetSum, vector<int>& temp,vector<vector<int>>& ans )
     {
-        if(root == NULL) return;
-
-        sum += root->val;
-        temp.push_back(root->val);
-        if(sum == targetSum && checkLeaf(root))
+        if(root == nullptr) return ;
+        if(sum == targetSum && isLeaf(root))
         {
             ans.push_back(temp);
+            return;
+        }
+        if(root->left)
+        {
+            temp.push_back(root->left->val);
+        DFS(root->left,sum+root->left->val,targetSum,temp,ans);
+        temp.pop_back();
         }
 
-        DFS(root->left,targetSum,sum,ans,temp);
-        DFS(root->right,targetSum,sum,ans,temp);
-        sum -= root->val;
+        if(root->right)
+        {
+            temp.push_back(root->right->val);
+        DFS(root->right,sum+root->right->val,targetSum,temp,ans);
         temp.pop_back();
+        }
+        
     }
+    
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
         vector<vector<int>> ans;
+        if(root == nullptr) return ans;
+        int sum = root->val;
         vector<int> temp;
-        int sum = 0;
-         DFS(root,targetSum,sum,ans,temp);
+        temp.push_back(root->val);
+        DFS(root,sum,targetSum,temp,ans);
+
 
         return ans;
     }
