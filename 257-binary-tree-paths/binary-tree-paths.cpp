@@ -29,10 +29,10 @@ public:
         }
 
         if(root->left)
-    DFS(root->left, temp + "->" + to_string(root->left->val), ans);
+        DFS(root->left, temp + "->" + to_string(root->left->val), ans);
 
-if(root->right)
-    DFS(root->right, temp + "->" + to_string(root->right->val), ans);
+        if(root->right)
+        DFS(root->right, temp + "->" + to_string(root->right->val), ans);
     }
     vector<string> binaryTreePaths(TreeNode* root) {
         
