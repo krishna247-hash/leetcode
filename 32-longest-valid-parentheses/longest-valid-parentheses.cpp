@@ -5,29 +5,30 @@ public:
         int right = 0;
         int ans = 0;
 
-        // Left to right
-        for(int i = 0; i < s.size(); i++)
+        // Left -> Right
+        for(auto it : s)
         {
-            if(s[i] == '(')
+            if(it == '(')
                 left++;
             else
                 right++;
 
-            if(left == right)
-            {
-                ans = max(ans, 2 * right);
-            }
-            else if(right > left)
+            if(left < right)
             {
                 left = 0;
                 right = 0;
+            }
+
+            if(left == right)
+            {
+                ans = max(ans, right * 2);
             }
         }
 
         left = 0;
         right = 0;
 
-        // Right to left
+        // Right -> Left
         for(int i = s.size() - 1; i >= 0; i--)
         {
             if(s[i] == '(')
@@ -35,14 +36,15 @@ public:
             else
                 right++;
 
-            if(left == right)
-            {
-                ans = max(ans, 2 * left);
-            }
-            else if(left > right)
+            if(right < left)
             {
                 left = 0;
                 right = 0;
+            }
+
+            if(left == right)
+            {
+                ans = max(ans, left * 2);
             }
         }
 
