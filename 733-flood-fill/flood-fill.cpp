@@ -1,36 +1,33 @@
 class Solution {
-public:
-    vector<vector<int>> dir = {{0,1},{1,0},{-1,0},{0,-1}};
-
-    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+  public:
+    
+    vector<vector<int>> dir ={{1,0},{-1,0},{0,1},{0,-1}};
+    void DFS(int i, int j,int x,vector<vector<int>>& image,int newColor)
+    {
         int m = image.size();
         int n = image[0].size();
-        int x = image[sr][sc];
-        int y = color;
-        if(x == y) return image;
-        queue<pair<int,int>> q;
-        q.push({sr,sc});
-        image[sr][sc] = y;
-        while(!q.empty())
+        image[i][j] = newColor;
+        
+        for(auto it: dir)
         {
-
-            auto it = q.front();
-            int r = it.first;
-            int c = it.second;
-            q.pop();
-            for(auto e: dir)
+            int i_ = i + it[0];
+            int j_ = j + it[1];
+            
+            if(i_ < m && i_ >= 0 && j_ < n && j_ >= 0 && image[i_][j_] == x)
             {
-                int r_ = r + e[0];
-                int c_ = c + e[1];
-                if(r_ >= 0 && r_ < m && c_ < n && c_ >= 0 && image[r_][c_] == x )
-                {
-                    image[r_][c_] = y;
-                    q.push({r_,c_});
-                }
+                DFS(i_,j_,x,image,newColor);
             }
         }
-
+    }
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc,
+                                  int newColor) {
+        // code here
+        
+        if(image[sr][sc] == newColor) return image;
+        
+        DFS(sr,sc,image[sr][sc],image,newColor);
+        
         return image;
-
+        
     }
 };
