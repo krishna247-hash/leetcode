@@ -48,26 +48,37 @@ public:
     }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
         ll n = numCourses;
-        vll vis(n,0);
-        vll path(n,0);
-        queue<pll> q;
+        vll indegree(n,0);
         vvll adj(n);
         for(auto it: prerequisites)
         {
+            indegree[it[1]]++;
             ll u = it[0];
             ll v = it[1];
-
             adj[u].pb(v);
         }
 
+        queue<ll> q;
         FOR(n)
         {
-            if(!vis[i])
-            {
-                if(dfs(i,vis,path,adj)) return false;
-            }
+            if(indegree[i] == 0) q.push(i);
         }
-        return true;
+
+        ll cnt = 0;
+
+        while(!q.empty())
+        {
+            ll x = q.front();
+            q.pop();
+            for(auto it: adj[x])
+            {
+                indegree[it]--;
+                if(indegree[it] == 0) q.push(it);
+            }
+            cnt++;
+        }
+
+        return cnt == n;
     }   
 };
 
