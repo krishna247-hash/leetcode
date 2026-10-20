@@ -35,7 +35,6 @@ public:
     {
         vis[node] = 1;
         path[node] = 1;
-
         for(auto it: adj[node])
         {
             if(path[it]) return true;
@@ -45,7 +44,6 @@ public:
                 if(dfs(it,vis,path,adj,a)) return true;
             }
         }
-
         a.pb(node);
         path[node] = 0;
         return false;
@@ -54,7 +52,6 @@ public:
         vll a;
         vll vis(sz(graph),0);
         vll path(sz(vis),0);
-
         FOR(sz(vis))
         {
             if(!vis[i] && !path[i])
@@ -62,7 +59,6 @@ public:
                 dfs(i,vis,path,graph,a);
             }
         }
-
         sort(all(a));
         return a;
     }
