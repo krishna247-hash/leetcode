@@ -52,8 +52,6 @@ public:
         vll path(n,0);
         queue<pll> q;
         vvll adj(n);
-
-
         for(auto it: prerequisites)
         {
             ll u = it[0];
@@ -69,7 +67,6 @@ public:
                 if(dfs(i,vis,path,adj)) return false;
             }
         }
-
         return true;
     }   
 };
