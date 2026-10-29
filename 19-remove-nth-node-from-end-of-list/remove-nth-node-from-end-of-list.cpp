@@ -30,17 +30,17 @@ public:
             return head;
         }
 
-        if(n == 1)
-        {
-            temp = head;
-            while(temp->next->next != NULL)
-            {
-                temp = temp->next;
-            }
+        // if(n == 1)
+        // {
+        //     temp = head;
+        //     while(temp->next->next != NULL)
+        //     {
+        //         temp = temp->next;
+        //     }
 
-            temp->next = temp->next->next;
-            return head;
-        }
+        //     temp->next = temp->next->next;
+        //     return head;
+        // }
 
         int cnt = 0;
         temp = head;
