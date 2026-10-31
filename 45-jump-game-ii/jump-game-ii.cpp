@@ -1,4 +1,4 @@
-#define ll long long
+#define ll int
 #define F first
 #define S second
 #define pb push_back
@@ -28,7 +28,7 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 #define RFORJ(a,b) for(ll j = a; j <= b; j++)
 #define RFORR(a,b) for(ll i = b; i >= a; i--)
 #define print(x) cout << x; NN
-#define INF (ll)(1LL << 60)
+#define INF (ll)(1LL << 30)
 #define umvll unordered_map<ll,vll>
 
 class Solution {
