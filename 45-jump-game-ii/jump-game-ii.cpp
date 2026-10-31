@@ -30,6 +30,7 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 #define print(x) cout << x; NN
 #define INF (ll)(1LL << 30)
 #define umvll unordered_map<ll,vll>
+#define Dpq  priority_queue<pll, vpll, greater<pll>>
 
 class Solution {
 public:
@@ -49,7 +50,7 @@ public:
             }
         }
 
-        priority_queue<pll, vpll, greater<pll>> pq;
+        Dpq pq;
 
         pq.push({0, 0});
         dist[0] = 0;
