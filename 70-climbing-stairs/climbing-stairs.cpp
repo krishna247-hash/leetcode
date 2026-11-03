@@ -45,12 +45,20 @@ public:
     //     return dp[n] = f(n-1,dp)+f(n-2,dp);
     // }
     int climbStairs(int n) {
-        vll dp(n+1,0);
-        dp[0] = 1;
-        dp[1] = 1;
+        // vll dp(n+1,0);
+        // dp[0] = 1;
+        // dp[1] = 1;
 
-        RFOR(2,n) dp[i] = dp[i-1]+dp[i-2];
+        ll prev = 1;
+        ll prev2 = 1;
 
-        return dp[n];
+        RFOR(2,n)
+        {
+            ll curr = prev + prev2;
+            prev2 = prev;
+            prev = curr;
+        }
+
+        return prev;
     }
 };
