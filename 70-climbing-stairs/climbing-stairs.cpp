@@ -36,16 +36,21 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 class Solution {
 public:
-    ll f(ll n, vll & dp)
-    {
-        if(n < 0)return 0;
-        if(n == 0)return 1;
-        if(dp[n] != -1)return dp[n];
+    // ll f(ll n, vll & dp)
+    // {
+    //     if(n < 0)return 0;
+    //     if(n == 0)return 1;
+    //     if(dp[n] != -1)return dp[n];
 
-        return dp[n] = f(n-1,dp)+f(n-2,dp);
-    }
+    //     return dp[n] = f(n-1,dp)+f(n-2,dp);
+    // }
     int climbStairs(int n) {
-        vll dp(n+1,-1);
-        return f(n,dp);
+        vll dp(n+1,0);
+        dp[0] = 1;
+        dp[1] = 1;
+
+        RFOR(2,n) dp[i] = dp[i-1]+dp[i-2];
+
+        return dp[n];
     }
 };
