@@ -1,4 +1,4 @@
-#define ll long long
+#define ll int
 #define F first
 #define S second
 #define pb push_back
@@ -36,17 +36,20 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 class Solution {
 public:
+    ll f(ll i,vll& dp, vll& a)
+    {
+        if(i < 0)return 0;
+        if(i == 0)return a[0];
+        if(dp[i] != -1)return dp[i];
+
+        ll t = a[i] + f(i-2,dp,a);
+        ll nt = f(i-1,dp,a);
+
+        return dp[i] = max(t,nt);
+    }
     int rob(vector<int>& nums) {
-        ll prev2 = 0, prev1 = 0;
-
-        for(auto x : nums)
-        {
-            ll ans = max(prev1, prev2 + x);
-
-            prev2 = prev1;
-            prev1 = ans;
-        }
-
-        return prev1;
+        ll n = sz(nums);
+        vll dp(n,-1);
+        return f(n-1,dp,nums);
     }
 };
