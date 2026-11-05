@@ -37,19 +37,25 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 class Solution {
 public:
     int uniquePaths(int m, int n) {
-        vvll dp(m,vll(n,0));
-        dp[0][0] = 1;
-        for(ll i = 1; i < m; i++)dp[i][0] = 1;
-        for(ll i = 1; i < n; i++)dp[0][i] = 1;
+        vll prev(n,0);
 
-        for(ll i = 1; i < m; i++)
+        FOR(m)
         {
-            for(ll j = 1; j < n; j++)
+            vll temp(n,0);
+            FORJ(n)
             {
-                dp[i][j] = dp[i-1][j]+dp[i][j-1];
+                if(i == 0 && j == 0)temp[j] = 1;
+                else
+                {
+                    ll e = 0;
+                    if(j > 0)e = temp[j-1];
+
+                    temp[j] = prev[j] + e;
+                }
             }
+            prev = temp;
         }
 
-        return dp[m-1][n-1];
+        return prev[n-1];
     }
 };
