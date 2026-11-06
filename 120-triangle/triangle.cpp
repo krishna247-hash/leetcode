@@ -36,41 +36,41 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 class Solution {
 public:
 
-    ll f(ll i,ll j, vvll& mat, unordered_map<ll,umll>&dp)
-    {
-        if(i == 0 && j == 0)return mat[i][j];
-        ll n = sz(mat[i]);
-        if(i < 0 || j < 0 || j >= n)return 1e7;
-        if(dp.find(i) != dp.end() && dp[i].find(j) != dp[i].end())return dp[i][j];
+    // ll f(ll i,ll j, vvll& mat, unordered_map<ll,umll>&dp)
+    // {
+    //     if(i == 0 && j == 0)return mat[i][j];
+    //     ll n = sz(mat[i]);
+    //     if(i < 0 || j < 0 || j >= n)return 1e7;
+    //     if(dp.find(i) != dp.end() && dp[i].find(j) != dp[i].end())return dp[i][j];
 
-        ll up = mat[i][j] + f(i-1,j,mat,dp);
-        ll dia = mat[i][j] + f(i-1,j-1,mat,dp);
+    //     ll up = mat[i][j] + f(i-1,j,mat,dp);
+    //     ll dia = mat[i][j] + f(i-1,j-1,mat,dp);
 
-        return dp[i][j] = min(up,dia);
-    }
+    //     return dp[i][j] = min(up,dia);
+    // }
     int minimumTotal(vector<vector<int>>& triangle) {
-        vvll dp = triangle;
-        ff(it,dp)
-        ff(x,it)
-        x = INT_MAX;
+        
+        vll dp(1,0);
 
-        FOR(sz(dp))
+        FOR(sz(triangle))
         {
-            FORJ(sz(dp[i]))
+            vll temp(sz(triangle[i]), INT_MAX);
+            FORJ(sz(triangle[i]))
             {
-                if(i == 0 && j == 0)dp[i][j] = triangle[0][0];
+                if(i == 0 && j == 0)temp[j] = triangle[0][0];
                 else
                 {
-                    if(i > 0 && j < sz(dp[i])-1)
-                    dp[i][j] = min(dp[i][j] , triangle[i][j] + dp[i-1][j]);
+                    if(i > 0 && j < sz(triangle[i])-1)
+                    temp[j] = min(temp[j] , triangle[i][j] + dp[j]);
                     if(i > 0 && j > 0)
-                    dp[i][j] = min(dp[i][j] , triangle[i][j] + dp[i-1][j-1]);
+                    temp[j] = min(temp[j] , triangle[i][j] + dp[j-1]);
                 }
             }
+            dp = temp;
         }
 
         ll ans = INT_MAX;
-        ff(it , dp[sz(dp)-1])ans = min(ans,it);
+        ff(it , dp)ans = min(ans,it);
 
         return ans;
     }
