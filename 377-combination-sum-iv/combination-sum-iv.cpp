@@ -1,4 +1,4 @@
-#define ll int
+#define ll long long
 #define F first
 #define S second
 #define pb push_back
@@ -35,21 +35,20 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 #define Dpq  priority_queue<pll, vpll, greater<pll>>
 class Solution {
 public:
-    
-    ll f(ll x, vll& a , vll& dp)
-    {
-        if(x == 0)return 1;
-        if(x < 0)return 0;
-        if(dp[x] != -1) return dp[x];
+        int combinationSum4(vector<int>& nums, int target) {
+    vector<unsigned long long> dp(target + 1, 0);
 
-        ll ans = 0;
-        ff(c,a) ans += f(x-c,a,dp);
-
-        return dp[x] = ans;
+    for (ll i = 0; i <= target; i++) {
+        if (i == 0) dp[0] = 1;
+        else {
+            ff(c, nums) {
+                if (i - c >= 0)
+                    dp[i] += dp[i - c];
+            }
+        }
     }
-    int combinationSum4(vector<int>& nums, int target) {
-        ll n = sz(nums);
-        vll dp(target+1,-1);
-        return f(target,nums,dp);
+
+    return dp[target];
+
     }
 };
