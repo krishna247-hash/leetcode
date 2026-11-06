@@ -28,7 +28,7 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 #define RFOR(a,b) for(ll i = a; i <= b; i++)
 #define RFORJ(a,b) for(ll j = a; j <= b; j++)
 #define RFORR(a,b) for(ll i = b; i >= a; i--)
-#define ff(a) for(auto& it: a)
+#define ff(x,a) for(auto& x: a)
 #define print(x) cout << x; NN
 #define INF (ll)(1LL << 60)
 #define umvll unordered_map<ll,vll>
@@ -49,21 +49,35 @@ public:
         return dp[i][j] = min(up,dia);
     }
     int minimumTotal(vector<vector<int>>& triangle) {
-        ll m = sz(triangle);
-        ll n = sz(triangle[m-1]);
+        vvll dp = triangle;
+        ff(it,dp)
+        ff(x,it)
+        x = INT_MAX;
+
+        FOR(sz(dp))
+        {
+            FORJ(sz(dp[i]))
+            {
+                if(i == 0 && j == 0)dp[i][j] = triangle[0][0];
+                else
+                {
+                    if(i > 0 && j < sz(dp[i])-1)
+                    dp[i][j] = min(dp[i][j] , triangle[i][j] + dp[i-1][j]);
+                    if(i > 0 && j > 0)
+                    dp[i][j] = min(dp[i][j] , triangle[i][j] + dp[i-1][j-1]);
+                }
+            }
+        }
 
         ll ans = INT_MAX;
-        FOR(n)
-        {
-            unordered_map<ll,umll> dp;
-            ans = min(ans,f(m-1,i,triangle,dp));
-        }
+        ff(it , dp[sz(dp)-1])ans = min(ans,it);
 
         return ans;
     }
 };
 
-// 
+// dp[0][0] = mat[0][0]
+// dp[i][j] = mat[i][j] +  min(dp[i-1][j] , dp[i-1][j-1])
 //
 //
 //
