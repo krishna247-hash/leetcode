@@ -59,15 +59,17 @@ public:
     // }
     int cherryPickup(vector<vector<int>>& grid) {
         ll m = sz(grid), n = sz(grid[0]);
-        vvvll dp(m,vvll(n,vll(n,-1e7)));
+        vvll dp(n,vll(n,-1e7));
+
 
         for(ll i = m-1; i >= 0; i--)
         {
+            vvll temp(n,vll(n,-1e7));
             for(ll j1 = 0; j1 < n; j1++)
             {
                 for(ll j2 = 0; j2 < n; j2++)
                 {
-                    if(i == m-1)dp[m-1][j1][j2] = (j1 != j2)? (grid[i][j1]+grid[i][j2]) : grid[i][j1];
+                    if(i == m-1)temp[j1][j2] = (j1 != j2)? (grid[i][j1]+grid[i][j2]) : grid[i][j1];
                     else 
                     {
                         ll y = (j1 != j2)? (grid[i][j1]+grid[i][j2]) : grid[i][j1];
@@ -82,16 +84,17 @@ public:
 
                                 if(r >= m || c1 < 0 || c2 < 0 || c1 >= n || c2 >= n)continue;
 
-                                dp[i][j1][j2] = max(dp[r][c1][c2] ,dp[i][j1][j2]);
+                                temp[j1][j2] = max(dp[c1][c2] ,temp[j1][j2]);
                             }
                         }
 
-                        dp[i][j1][j2] += y;
+                        temp[j1][j2] += y;
                     }
                 }
             }
+            dp = temp;
         }
-        return dp[0][0][n-1];
+        return dp[0][n-1];
     }
 };
 
