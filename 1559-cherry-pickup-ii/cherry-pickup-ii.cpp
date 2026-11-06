@@ -59,12 +59,11 @@ public:
     // }
     int cherryPickup(vector<vector<int>>& grid) {
         ll m = sz(grid), n = sz(grid[0]);
-        vvll dp(n,vll(n,-1e7));
+        vvll dp(n,vll(n,-1e7)), temp(n,vll(n,-1e7));
 
 
         for(ll i = m-1; i >= 0; i--)
         {
-            vvll temp(n,vll(n,-1e7));
             for(ll j1 = 0; j1 < n; j1++)
             {
                 for(ll j2 = 0; j2 < n; j2++)
@@ -92,7 +91,7 @@ public:
                     }
                 }
             }
-            dp = temp;
+            swap(dp ,temp);
         }
         return dp[0][n-1];
     }
