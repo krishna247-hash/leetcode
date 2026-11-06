@@ -1,4 +1,4 @@
-#define ll int
+#define ll long long
 #define F first
 #define S second
 #define pb push_back
@@ -58,32 +58,34 @@ public:
         //     ans = min(ans, f(n-1,i,matrix,dp));
         // }
 
-        vvll dp(n,vll(n,INT_MAX));
+        vll dp(n,0);
 
         FOR(n)
         {
+            vll curr(n,INT_MAX);
             FORJ(n)
             {
-                if(i == 0)dp[i][j] = matrix[i][j];
+                if(i == 0)curr[j] = matrix[0][j];
                 else
                 {
                     if(i > 0)
                     {
-                        dp[i][j] = min(dp[i][j] , matrix[i][j] + dp[i-1][j]);
+                        curr[j] = min(curr[j] , matrix[i][j] + dp[j]);
                     }
                     if(i > 0 && j > 0)
                     {
-                        dp[i][j] = min(dp[i][j], matrix[i][j] + dp[i-1][j-1]);
+                        curr[j] = min(curr[j], matrix[i][j] + dp[j-1]);
                     }
                     if(i > 0 && j < n-1)
                     {
-                        dp[i][j] = min(dp[i][j],matrix[i][j] + dp[i-1][j+1]);
+                        curr[j] = min(curr[j],matrix[i][j] + dp[j+1]);
                     }
                 }
             }
+            dp = curr;
         }
 
-       ff(x,dp[n-1])ans = min(ans,x);
+       ff(x,dp)ans = min(ans,x);
         return ans;
     }
 };
