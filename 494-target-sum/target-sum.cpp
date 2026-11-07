@@ -36,19 +36,27 @@ mt19937_64 RNG(chrono::steady_clock::now().time_since_epoch().count());
 
 class Solution {
 public:
-    ll f(ll i , ll x, vll& a,unordered_map<ll,umll>& dp)
+    ll f(ll i , ll x, vll& a, vvll& dp)
     {
-        if(i == -1 && x == 0)return dp[i][x] = 1;
-        if(i <= -1)return 0;
-        if(dp.find(i) != dp.end() && dp[i].find(x) != dp[i].end())return dp[i][x];
+        if(i == -1) return x == 0;
+        if(x < 0) return 0;
+        if(dp[i][x] != -1) return dp[i][x];
 
-        ll t = f(i-1,x+a[i],a,dp);
-        ll nt = f(i-1,x-a[i],a,dp);
+        ll t = f(i-1, x, a, dp);
+        ll nt = f(i-1, x - a[i], a, dp);
 
-        return dp[i][x] = t+nt;
+        return dp[i][x] = t + nt;
     }
+
     int findTargetSumWays(vector<int>& nums, int target) {
-        unordered_map<ll,umll> dp;
-        return f(sz(nums)-1,abs(target),nums,dp);
+        ll n = sz(nums);
+        vll a(all(nums));
+        ll sum = SUM(all(a), 0LL);
+
+        if(sum < abs(target) || (sum + target) % 2 != 0) return 0;
+        ll k = (sum - abs(target)) / 2;
+
+        vvll dp(n, vll(k + 1, -1));
+        return f(n - 1, k, a, dp);
     }
 };
