@@ -38,7 +38,7 @@ class Solution {
 public:
     ll f(ll i , ll x, vll& a,unordered_map<ll,umll>& dp)
     {
-        if(i == -1 && x == 0)return 1;
+        if(i == -1 && x == 0)return dp[i][x] = 1;
         if(i <= -1)return 0;
         if(dp.find(i) != dp.end() && dp[i].find(x) != dp[i].end())return dp[i][x];
 
@@ -49,6 +49,6 @@ public:
     }
     int findTargetSumWays(vector<int>& nums, int target) {
         unordered_map<ll,umll> dp;
-        return f(sz(nums)-1,target,nums,dp);
+        return f(sz(nums)-1,abs(target),nums,dp);
     }
 };
