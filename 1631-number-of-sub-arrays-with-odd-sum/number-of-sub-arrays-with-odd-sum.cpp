@@ -1,13 +1,13 @@
 class Solution {
 public:
+    int MOD = 1e9+7;
     int numOfSubarrays(vector<int>& arr) {
-        long long odd = 0;
-        long long even = 1; 
-        long long curr = 0;
-        long long cnt = 0;
-        long long MOD = 1e9 + 7;
+        int odd = 0;
+        int even = 1; 
+        int curr = 0;
+        int cnt = 0;
 
-        for (int x : arr) {
+        for (auto x : arr) {
             curr = (curr + x) & 1; 
             
             if (curr) {
@@ -21,6 +21,9 @@ public:
         return cnt;
     }
 };
+
+// TC = O(n)
+// SC = O(1)
 
 
 
